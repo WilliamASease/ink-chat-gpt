@@ -71,6 +71,25 @@ export const Config = (props: IProps) => {
 						setPrimeLineInput(null);
 					},
 				});
+			} else if (input === 'l') {
+				dispatch({
+					type: 'setLoggingEnable',
+					loggingEnable: !state.config.loggingEnable,
+				});
+			} else if (input === 'k') {
+				dispatch({
+					type: 'setLoggingMode',
+					fileMode:
+						state.config.loggingMode === 'oneFile' ? 'manyFiles' : 'oneFile',
+				});
+			} else if (input === 'o') {
+				setPrimeLineInput({
+					message: 'New output directory:',
+					onSubmit: fire => {
+						dispatch({type: 'setOutputDirectory', outputDirectory: fire});
+						setPrimeLineInput(null);
+					},
+				});
 			} else if (['1', '2', '3', '4', '5', '0'].includes(input)) {
 				const array: [
 					'OUTER_FRAME_COLOR',
@@ -114,6 +133,13 @@ export const Config = (props: IProps) => {
 			<Text>
 				(H)eight {state.config.height} (W)idth {state.config.width}
 			</Text>
+			<Text>
+				(L)ogging is {state.config.loggingEnable ? 'ON' : 'OFF'}. (K)eep logs in{' '}
+				{state.config.loggingMode === 'oneFile'
+					? 'One File'
+					: 'Group by session'}
+			</Text>
+			<Text>(O)utput directory = {state.config.outputDirectory}</Text>
 			<Col flexGrow={1} />
 			<Row flexGrow={1} />
 			{primeLineInput !== null ? (
