@@ -164,13 +164,13 @@ const globalReducer = (
 			updateVariable(CONFIG_KEYS.LOGGING_FILE_MODE, action.fileMode);
 			return {
 				...state,
-				config: {...state.config, activeModel: action.fileMode},
+				config: {...state.config, loggingMode: action.fileMode},
 			};
 		case 'setOutputDirectory':
 			updateVariable(CONFIG_KEYS.OUTPUT_DIRECTORY, action.outputDirectory);
 			return {
 				...state,
-				config: {...state.config, activeModel: action.outputDirectory},
+				config: {...state.config, outputDirectory: action.outputDirectory},
 			};
 		case 'cycleColor':
 			const colors = state.config.colorMap;
