@@ -42,7 +42,11 @@ export const Models = (props: IProps) => {
 
 	return (
 		<Row>
-			<Col borderColor={'green'} paddingRight={1} borderStyle={'classic'}>
+			<Col
+				borderColor={state.config.colorMap.innerFrame}
+				paddingRight={1}
+				borderStyle={'classic'}
+			>
 				<ScrollingSelectionList<Model>
 					items={models}
 					getText={model => model?.id ?? ''}
@@ -64,7 +68,7 @@ export const Models = (props: IProps) => {
 			<Col
 				marginLeft={2}
 				borderStyle={'single'}
-				borderColor={'greenBright'}
+				borderColor={state.config.colorMap.innerFrame}
 				flexGrow={1}
 			>
 				{loadedActiveModel && (

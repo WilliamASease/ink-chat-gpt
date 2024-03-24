@@ -71,20 +71,50 @@ export const Config = (props: IProps) => {
 						setPrimeLineInput(null);
 					},
 				});
+			} else if (['1', '2', '3', '4', '5', '0'].includes(input)) {
+				const array: [
+					'OUTER_FRAME_COLOR',
+					'INNER_FRAME_COLOR',
+					'TAB_BAR_COLOR',
+					'YOUR_COLOR',
+					'MODEL_COLOR',
+				] = [
+					'OUTER_FRAME_COLOR',
+					'INNER_FRAME_COLOR',
+					'TAB_BAR_COLOR',
+					'YOUR_COLOR',
+					'MODEL_COLOR',
+				];
+				dispatch({
+					type: 'cycleColor',
+					which: array[parseInt(input) - 1] ?? 'RESET',
+				});
 			}
 		}
 	});
 
 	return (
-		<Col>
+		<Col flexGrow={1}>
 			<Text color={'yellow'}>Your config file lives at {configFilePath}</Text>
 			<Text>(U)pdate secret key (D)elete secret key (N)uke config file</Text>
-			<Text>
-				Colors: (1) Outer Frame (2) Inner Frame (3) TabBar (4) You (5) Model
-			</Text>
+			<Text>Colors: </Text>
+			<Row>
+				<Text> (1) </Text>
+				<Text color={state.config.colorMap.outerFrame}>Outer Frame</Text>
+				<Text> (2) </Text>
+				<Text color={state.config.colorMap.innerFrame}>Inner Frames</Text>
+				<Text> (3) </Text>
+				<Text color={state.config.colorMap.tabBar}>TabBar</Text>
+				<Text> (4) </Text>
+				<Text color={state.config.colorMap.you}>You</Text>
+				<Text> (5) </Text>
+				<Text color={state.config.colorMap.model}>Model</Text>
+				<Text> (0) Reset</Text>
+			</Row>
 			<Text>
 				(H)eight {state.config.height} (W)idth {state.config.width}
 			</Text>
+			<Col flexGrow={1} />
 			<Row flexGrow={1} />
 			{primeLineInput !== null ? (
 				<Col>

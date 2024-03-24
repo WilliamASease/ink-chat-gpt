@@ -22,7 +22,7 @@ export default function App() {
 	return (
 		<Box
 			flexDirection="column"
-			borderColor={'green'}
+			borderColor={state.config.colorMap.outerFrame}
 			borderStyle={'classic'}
 			padding={1}
 			height={parseInt(state.config.height)}
@@ -32,6 +32,7 @@ export default function App() {
 				<KeyPanic global={global} />
 			) : (
 				<Switcher
+					textColor={state.config.colorMap.tabBar}
 					containerProps={{flexDirection: 'column', flexGrow: 1}}
 					sections={[
 						{
