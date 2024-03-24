@@ -1,6 +1,5 @@
 import {Box} from 'ink';
 import React, {useEffect, useReducer} from 'react';
-import dotenv from 'dotenv';
 import {Switcher} from 'waseas-ink-components/dist/exports.js';
 import {Chat} from './views/Chat.js';
 import {Models} from './views/Models.js';
@@ -10,20 +9,15 @@ import pkg from 'lodash';
 import {KeyPanic} from './views/KeyPanic.js';
 const {isNil} = pkg;
 
-dotenv.config();
-
 export default function App() {
 	const global = useReducer(globalReducer, globalReducerinitialState);
 	const [state, dispatch] = global;
 
 	useEffect(() => {
-		const key = process.env['OPENAI_API_KEY'];
-		if (isNil(key)) {
+		if (isNil(state.config.apiKey)) {
 			dispatch({type: 'setKeyPanic', keyPanic: true});
-		} else {
-			dispatch({type: 'newOpenAI', key: key});
 		}
-	}, []);
+	}, [state.config.apiKey]);
 
 	return (
 		<Box
@@ -31,13 +25,14 @@ export default function App() {
 			borderColor={'green'}
 			borderStyle={'classic'}
 			padding={1}
-			height={20}
-			width={100}
+			height={parseInt(state.config.height)}
+			width={parseInt(state.config.width)}
 		>
 			{state.keyPanic ? (
 				<KeyPanic global={global} />
 			) : (
 				<Switcher
+					containerProps={{flexDirection: 'column', flexGrow: 1}}
 					sections={[
 						{
 							display: 'Chat',

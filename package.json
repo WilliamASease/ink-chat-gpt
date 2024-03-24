@@ -18,13 +18,12 @@
 	],
 	"dependencies": {
 		"@types/lodash": "^4.17.0",
-		"dotenv": "^16.4.5",
 		"ink": "^4.4.1",
 		"lodash": "^4.17.21",
 		"meow": "^11.0.0",
 		"openai": "^4.29.2",
 		"react": "^18.2.0",
-		"waseas-ink-components": "^0.0.3"
+		"waseas-ink-components": "^0.0.7"
 	},
 	"devDependencies": {
 		"@sindresorhus/tsconfig": "^3.0.1",

@@ -1,6 +1,6 @@
-import {Dispatch, useEffect} from 'react';
+import {Dispatch} from 'react';
 import {globalReducerAction, globalReducerState} from '../globalReducer.js';
-import {ensureEnvFileExists, updateEnvVariable} from '../envhelpermethods.js';
+import {configFilePath} from '../confighelper.js';
 import {Col, LineInput, Row} from 'waseas-ink-components/dist/exports.js';
 import React from 'react';
 import {Text} from 'ink';
@@ -11,22 +11,23 @@ type IProps = {
 export const KeyPanic = (props: IProps) => {
 	const {global} = props;
 	const [, dispatch] = global;
-	useEffect(ensureEnvFileExists);
 
 	return (
 		<Col>
 			<Row borderColor={'red'} borderStyle={'single'}>
 				<Text color={'red'}>No Key Error</Text>
 			</Row>
-			<Text>If you're here, you had no .env file, or no OPEN_API_KEY</Text>
-			<Text>In that file.</Text>
+			<Text>
+				If you're here, you have no config file, or no OPENAI_API_KEY In that
+				file.
+			</Text>
+			<Text>The file lives at {configFilePath}</Text>
 			<Text>Get one from the OpenAI platform</Text>
 			<Text>And give it to us here:</Text>
 			<LineInput
 				linePrefix=">"
 				onSubmit={fire => {
-					updateEnvVariable('OPENAI_API_KEY', fire);
-					dispatch({type: 'newOpenAI', key: fire});
+					dispatch({type: 'setKey', key: fire});
 					dispatch({type: 'setKeyPanic', keyPanic: false});
 				}}
 			/>
@@ -35,7 +36,7 @@ export const KeyPanic = (props: IProps) => {
 				And if you haven't heard already, be really careful with this key -- it
 				can be used
 			</Text>
-			<Text color={'yellow'}>To fire requests on your credit card!</Text>
+			<Text color={'yellow'}>To bill requests to you!</Text>
 		</Col>
 	);
 };
